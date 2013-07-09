@@ -1,7 +1,7 @@
 module Paypal
   module Payment
     class Request::Item < Base
-      attr_optional :name, :description, :amount, :number, :quantity, :category, :url
+      attr_optional :name, :description, :amount, :number, :quantity, :category, :url, :tax
 
       def initialize(attributes = {})
         super
@@ -16,7 +16,8 @@ module Paypal
           :"L_PAYMENTREQUEST_#{parent_index}_NUMBER#{index}" => self.number,
           :"L_PAYMENTREQUEST_#{parent_index}_QTY#{index}" => self.quantity,
           :"L_PAYMENTREQUEST_#{parent_index}_ITEMCATEGORY#{index}" => self.category,
-          :"L_PAYMENTREQUEST_#{parent_index}_ITEMURL#{index}" => self.url
+          :"L_PAYMENTREQUEST_#{parent_index}_ITEMURL#{index}" => self.url,
+          :"L_PAYMENTREQUEST_#{parent_index}_TAXAMT#{index}" => self.tax
         }.delete_if do |k, v|
           v.blank?
         end
